@@ -36,8 +36,14 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //dd($request->all());
-        $title = $request->input('title', 'Draft Title');
-        $content = $request->input('content' 'Draft Content');
+        $blogPost = new BlogPost();
+        $blogPost->title = $request->input('title');
+        $blogPost->content = $request->input('content');
+        $blogPost->save();
+
+        $request->session()->flash('status', 'Blog post was created successfully');
+
+        return redirect('posts.index'); //redirect()->route('posts.index') -
 
         //dd($title, $content);
     }
@@ -48,8 +54,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+        // $request->session()->reflash(); // Keeps the flash variable for the next request
         return view('posts.show', ['post' => BlogPost::findOrFail($id)]);
     }
 
