@@ -19,4 +19,5 @@ Route::get('/contact', 'HomeController@contact')->name('contact');
 
 // Route::view('/', 'home'); // Does the same as a standard route
 
-Route::get('/blog-post/{id}/{post?}', 'HomeController@blogPost')->name('blog-post');
+//Route::get('/blog-post/{id}/{post?}', 'HomeController@blogPost')->name('blog-post');
+Route::resource('/posts', 'PostController'); //->only(['index' 'show']);
