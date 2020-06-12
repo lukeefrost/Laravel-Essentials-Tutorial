@@ -54,7 +54,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
         // $request->session()->reflash(); // Keeps the flash variable for the next request
         return view('posts.show', ['post' => BlogPost::findOrFail($id)]);
@@ -68,7 +68,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -78,9 +79,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $validatedData = $request->validated();
+
+        $post->fill($validatedData);
+        $post->save();
+        $request->session()->flash('status', 'Blog post was updated');
+
+        return redirect()->route('posts.show', ['post' => $post->id]);
     }
 
     /**
@@ -89,8 +97,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $post = BlogPost::findOrFail($id);
+        $post->delete();
+
+        //BlogPost::destroy($id); - Alternative method
+
+        $request->session()->flash('status', 'Blog post delted successfully');
+        return redirect()->route('posts.index');
     }
 }
