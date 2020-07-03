@@ -9,6 +9,7 @@ class ExampleTest extends TestCase
 {
     /**
      * A basic test example.
+     * All tests have an Arrange, Act and Assert methodology
      *
      * @return void
      */

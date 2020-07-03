@@ -104,7 +104,7 @@ class PostController extends Controller
 
         //BlogPost::destroy($id); - Alternative method
 
-        $request->session()->flash('status', 'Blog post delted successfully');
+        $request->session()->flash('status', 'Blog post deleted successfully');
         return redirect()->route('posts.index');
     }
 }
