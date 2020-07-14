@@ -54,7 +54,7 @@ class PostController extends Controller
     {
         //dd($request->all());
         $validatedData = $request->validate();
-        $blogPost = new BlogPost::create($validatedData); // Mass assignment helper
+        $blogPost = BlogPost::create($validatedData); // Mass assignment helper
         $blogPost->save();
 
         $request->session()->flash('status', 'Blog post was created successfully');
@@ -73,7 +73,7 @@ class PostController extends Controller
     public function show($id)
     {
         // $request->session()->reflash(); // Keeps the flash variable for the next request
-        return view('posts.show', ['post' => BlogPost::findOrFail($id)]);
+        return view('posts.show', ['post' => BlogPost::with('comments')->findOrFail($id)]);
     }
 
     /**
