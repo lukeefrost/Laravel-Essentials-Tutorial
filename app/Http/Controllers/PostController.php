@@ -10,6 +10,13 @@ use App\Http\Requests\StorePost;
 
 class PostController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth'); // redirects to login page if not authenticated
+        // can add on to the end ->only(['create'])
+    }
+
     /**
      * Display a listing of the resource.
      *

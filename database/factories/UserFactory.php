@@ -26,3 +26,10 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
     ];
 });
+
+$factory->state(App\User::class, 'luke-frost', function (Faker $faker) {
+  return [
+    'name' => 'Luke Frost',
+    'email' => 'lukefrost96@hotmail.co.uk',
+  ];
+});

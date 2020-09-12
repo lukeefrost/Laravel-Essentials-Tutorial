@@ -1,4 +1,4 @@
-//<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -15,8 +15,14 @@ class CreateBlogpostsTable extends Migration
     {
         Schema::create('blogposts', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->default('');
-            $table->text('content')->default('');
+            $table->string('title');
+
+            if(env('DB_CONNECTION') === 'sqlite_testing') {
+              $table->text('content')->default('');
+            } else {
+              $table->text('content');
+            }
+
             $table->timestamps();
         });
     }
